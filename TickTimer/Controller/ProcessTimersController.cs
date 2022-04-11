@@ -16,9 +16,9 @@ namespace TickTimer.Controller
 
         //A list of ProcessTimers that trackes the currently tracked processes defined by the user.
         public List<ProcessTimer> ProcessTimers = new List<ProcessTimer>();
-        public List<string> AddedProcesses = new List<string>();
+        public List<string> TrackedProcesses = new List<string>();
         private static ProcessTimersController INSTANCE = null;
-        private string CurrentActiveProcess;
+        private string CurrentActiveProcess = "";
         private ProcessTimersController() {}
 
         public static ProcessTimersController GetInstance()
@@ -32,8 +32,6 @@ namespace TickTimer.Controller
 
         public void ActiveWindowChanged(string NewActiveProcess)
         {
-            this.CurrentActiveProcess = NewActiveProcess;
-
             //Need to make sure we account for every possibility.
             //So if the user switches from one tracked process to another, we need to kill the old timer, and start the new one.
             //And if the user switches from an untracked process to a tracked one, we need to start the new timer.
@@ -57,16 +55,23 @@ namespace TickTimer.Controller
             return false;
         }
 
+        public Boolean PlaceHolderIsTrackedProcess(string CheckedProcess)
+        {
+            if (this.TrackedProcesses.Contains(CheckedProcess)) { return true; }
+
+            return false;
+        }
+
         //Adds a process to the list of actively tracked processes
         private void AddProcess(string ProcessName)
         {
-            if (AddedProcesses.Contains(ProcessName))
+            if (TrackedProcesses.Contains(ProcessName))
             {
                 throw new Exception("This process has already been added to the list!");
             }
 
             ProcessTimers.Add(new ProcessTimer(ProcessName));
-            AddedProcesses.Add(ProcessName);
+            TrackedProcesses.Add(ProcessName);
             Console.WriteLine("Process : " + ProcessName + " added!");
         }
 
@@ -87,7 +92,7 @@ namespace TickTimer.Controller
                 if (pt.Equals(ProcessName))
                 {
                     ProcessTimers.Remove(pt);
-                    AddedProcesses.Remove(ProcessName);
+                    TrackedProcesses.Remove(ProcessName);
                     return;
                 }
             }
@@ -129,9 +134,9 @@ namespace TickTimer.Controller
             }
         }
 
-        public List<string> TrackedProcesses()
+        public List<string> AllTrackedProcesses()
         {
-            return this.AddedProcesses;
+            return this.TrackedProcesses;
         }
 
         //Placeholder asynchronous method. Might not be necessary

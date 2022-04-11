@@ -14,7 +14,7 @@ namespace TickTimer.Controller
         private List<string> RunningPrograms = new List<string>();
         private ProcessTimersController PTC = ProcessTimersController.GetInstance();
         private Process[] ProcessList;
-        private string CurrentProcess;
+        private string CurrentProcess = "";
 
 
         [DllImport("user32.dll")]
@@ -25,7 +25,7 @@ namespace TickTimer.Controller
 
         public string ActiveWindow()
         {
-            ProcessList = Process.GetProcesses();
+            this.ProcessList = Process.GetProcesses();
 
             IntPtr ActiveWindowHandle = GetForegroundWindow();
 
@@ -33,21 +33,30 @@ namespace TickTimer.Controller
             {
                 if (process.MainWindowHandle.Equals(ActiveWindowHandle))
                 {
-                    CurrentProcess = process.ProcessName;
+                    //IF THE ACTIVE WINDOW HAS CHANGED!
+                    if (ActiveWindowChanged(process.ProcessName)) 
+                    {
+                        Console.WriteLine("THE ACTIVE WINDOW HAS CHANGED!");
+                        PTC.ActiveWindowChanged(process.ProcessName);
+                    } 
                     return process.ProcessName;
                 }
             }
-            return Process.GetCurrentProcess().ToString();
+            return "No active window";
         }
 
         private Boolean ActiveWindowChanged(string CheckProcess)
         {
-            if (CurrentProcess.Equals(CheckProcess)) return false;
+            if (this.CurrentProcess.Equals(CheckProcess)) return false;
 
-            CurrentProcess = CheckProcess;
+            this.CurrentProcess = CheckProcess;
             return true;
         }
 
+        public string ActiveProcess()
+        {
+            return this.CurrentProcess;
+        }
 
         private ProcessMonitor() {
             FetchProcesses();
@@ -55,12 +64,16 @@ namespace TickTimer.Controller
 
         public void FetchProcesses()
         {
-            ProcessList = Process.GetProcesses();
+            this.ProcessList = Process.GetProcesses();
             this.RunningPrograms.Clear();
 
             foreach (Process p in ProcessList)
-            {               
-                RunningPrograms.Add(p.ProcessName);
+            {
+                if (!RunningPrograms.Contains(p.ProcessName))
+                {
+                    RunningPrograms.Add(p.ProcessName);
+                }
+                
             }
         }
 

@@ -52,8 +52,10 @@ namespace TickTimer
 
         private void BtnStopTimer_Click(object sender, EventArgs e)
         {
-            Timer tmr = new Timer();
-            tmr.Interval = 1000;
+            Timer tmr = new Timer
+            {
+                Interval = 1000
+            };
             tmr.Tick += Tmr_Tick;
             tmr.Start();
 
@@ -68,7 +70,7 @@ namespace TickTimer
         {
             string title = pm.ActiveWindow();
 
-            Console.WriteLine("THE TITLE OF THE CURRENTLY RUNNING APPLICATION IS THIS ===> " + title);
+            Console.WriteLine("THE TITLE OF THE CURRENTLY RUNNING APPLICATION IS THIS ===> " + pm.ActiveProcess());
             
         }
 

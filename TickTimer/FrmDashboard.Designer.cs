@@ -35,8 +35,8 @@
             this.BtnRemoveProcess = new System.Windows.Forms.Button();
             this.BtnAddProcess = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.BtnRefreshList = new System.Windows.Forms.Button();
             this.ProcessCheckList = new System.Windows.Forms.CheckedListBox();
+            this.BtnRefreshList = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -112,17 +112,6 @@
             this.panel1.Size = new System.Drawing.Size(220, 480);
             this.panel1.TabIndex = 4;
             // 
-            // BtnRefreshList
-            // 
-            this.BtnRefreshList.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtnRefreshList.Location = new System.Drawing.Point(0, 46);
-            this.BtnRefreshList.Name = "BtnRefreshList";
-            this.BtnRefreshList.Size = new System.Drawing.Size(220, 23);
-            this.BtnRefreshList.TabIndex = 3;
-            this.BtnRefreshList.Text = "Refresh List";
-            this.BtnRefreshList.UseVisualStyleBackColor = true;
-            this.BtnRefreshList.Click += new System.EventHandler(this.BtnRefreshList_Click);
-            // 
             // ProcessCheckList
             // 
             this.ProcessCheckList.CheckOnClick = true;
@@ -134,6 +123,18 @@
             this.ProcessCheckList.Sorted = true;
             this.ProcessCheckList.TabIndex = 4;
             this.ProcessCheckList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.ProcessCheckList_ItemCheck);
+            this.ProcessCheckList.SelectedIndexChanged += new System.EventHandler(this.ProcessCheckList_SelectedIndexChanged);
+            // 
+            // BtnRefreshList
+            // 
+            this.BtnRefreshList.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnRefreshList.Location = new System.Drawing.Point(0, 46);
+            this.BtnRefreshList.Name = "BtnRefreshList";
+            this.BtnRefreshList.Size = new System.Drawing.Size(220, 23);
+            this.BtnRefreshList.TabIndex = 3;
+            this.BtnRefreshList.Text = "Refresh List";
+            this.BtnRefreshList.UseVisualStyleBackColor = true;
+            this.BtnRefreshList.Click += new System.EventHandler(this.BtnRefreshList_Click);
             // 
             // FrmDashboard
             // 

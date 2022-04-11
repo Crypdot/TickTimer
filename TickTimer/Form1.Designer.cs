@@ -42,6 +42,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.PnlFormLoader = new System.Windows.Forms.Panel();
             this.CurView = new System.Windows.Forms.Label();
+            this.BtnMinimizeButton = new System.Windows.Forms.Button();
+            this.BtnExitButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -213,12 +215,34 @@
             this.CurView.TabIndex = 2;
             this.CurView.Text = "Current View";
             // 
+            // BtnMinimizeButton
+            // 
+            this.BtnMinimizeButton.Location = new System.Drawing.Point(884, 3);
+            this.BtnMinimizeButton.Name = "BtnMinimizeButton";
+            this.BtnMinimizeButton.Size = new System.Drawing.Size(30, 30);
+            this.BtnMinimizeButton.TabIndex = 3;
+            this.BtnMinimizeButton.Text = "_";
+            this.BtnMinimizeButton.UseVisualStyleBackColor = true;
+            this.BtnMinimizeButton.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // BtnExitButton
+            // 
+            this.BtnExitButton.Location = new System.Drawing.Point(920, 3);
+            this.BtnExitButton.Name = "BtnExitButton";
+            this.BtnExitButton.Size = new System.Drawing.Size(30, 30);
+            this.BtnExitButton.TabIndex = 4;
+            this.BtnExitButton.Text = "X";
+            this.BtnExitButton.UseVisualStyleBackColor = true;
+            this.BtnExitButton.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(950, 580);
+            this.Controls.Add(this.BtnExitButton);
+            this.Controls.Add(this.BtnMinimizeButton);
             this.Controls.Add(this.CurView);
             this.Controls.Add(this.PnlFormLoader);
             this.Controls.Add(this.panel1);
@@ -251,6 +275,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel PnlFormLoader;
         private System.Windows.Forms.Label CurView;
+        private System.Windows.Forms.Button BtnMinimizeButton;
+        private System.Windows.Forms.Button BtnExitButton;
     }
 }
 

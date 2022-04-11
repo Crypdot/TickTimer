@@ -10,6 +10,11 @@ namespace TickTimer.Controller
 {
     class ProcessTimersController
     {
+
+        //THIS ALSO NEEDS A DAO CONNECTION! That way when I kill a timer, it can autosave. 
+        //Actually, it SHOULD autosave, say... every five seconds? Maybe user-defined?
+
+        //A list of ProcessTimers that trackes the currently tracked processes defined by the user.
         public List<ProcessTimer> ProcessTimers = new List<ProcessTimer>();
         public List<string> AddedProcesses = new List<string>();
         private static ProcessTimersController INSTANCE = null;
@@ -29,14 +34,20 @@ namespace TickTimer.Controller
         {
             this.CurrentActiveProcess = NewActiveProcess;
 
+            //Need to make sure we account for every possibility.
+            //So if the user switches from one tracked process to another, we need to kill the old timer, and start the new one.
+            //And if the user switches from an untracked process to a tracked one, we need to start the new timer.
+            //If the user switches from a tracked process to an inactive one, we need to kill the old timer.
             if (IsTrackedProcess(NewActiveProcess))
             {
                 //Okay, this now starts the timer, but how do we ensure it keeps track of which timers have been started? Otherwise stopping the timers is gonna be paain
                 //Right now, if a timer is started, and then another process is clicked, there's no way of knowing if an active timer _should_ be stopped.
+                //So save the current activity as a "placeholder process"
                 StartTimer(NewActiveProcess);
             }
         }
 
+        //Lets the controller know whether or not a process is currently tracked or not.
         private Boolean IsTrackedProcess(string ProcessName)
         {
             foreach(ProcessTimer PT in ProcessTimers)
@@ -46,7 +57,7 @@ namespace TickTimer.Controller
             return false;
         }
 
-
+        //Adds a process to the list of actively tracked processes
         private void AddProcess(string ProcessName)
         {
             if (AddedProcesses.Contains(ProcessName))
@@ -59,6 +70,7 @@ namespace TickTimer.Controller
             Console.WriteLine("Process : " + ProcessName + " added!");
         }
 
+        //Adds processes to the list of actively tracked processes.
         public void AddProcesses(List<string> Processes)
         {
             foreach(string s in Processes)
@@ -67,6 +79,7 @@ namespace TickTimer.Controller
             }
         }
 
+        //Removes a process from the list of actively tracked processes.
         private void RemoveProcess(string ProcessName)
         {
             foreach (ProcessTimer pt in ProcessTimers)
@@ -121,11 +134,13 @@ namespace TickTimer.Controller
             return this.AddedProcesses;
         }
 
+        //Placeholder asynchronous method. Might not be necessary
         public async Task ProcessActive(string ProcessName)
         {
             await Task.Run(() => StartTimer(ProcessName));
         }
 
+        //Placeholder asynchronous method. Might not be necessary
         public async Task ProcessInactive(string ProcessName)
         {
             await Task.Run(() => KillTimer(ProcessName));

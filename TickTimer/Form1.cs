@@ -119,5 +119,16 @@ namespace TickTimer
         {
             BtnSettings.BackColor = Color.FromArgb(24, 30, 54);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Testing button MIN");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Testing button CLOSE");
+            Application.Exit();
+        }
     }
 }

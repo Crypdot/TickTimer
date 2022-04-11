@@ -77,7 +77,6 @@ namespace TickTimer.Controller
             }
         }
 
-
         public static ProcessMonitor GetInstance()
         {
             if(INSTANCE == null)

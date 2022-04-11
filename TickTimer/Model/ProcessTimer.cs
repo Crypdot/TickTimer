@@ -20,21 +20,26 @@ namespace TickTimer.Model
             this.clockRunning = false;
         }
 
+        public Boolean IsProcessRunning()
+        {
+            return this.clockRunning;
+        }
+
         public void ProcessTimerStart()
         {
-            startTime = DateTime.Now;
-            clockRunning = true;
+            this.startTime = DateTime.Now;
+            this.clockRunning = true;
         }
 
         public void ProcessTimerStop()
         {
-            if (!clockRunning)
+            if (!this.clockRunning)
             {
                 Console.WriteLine("Can't stop a timer when one isn't running!");
                 this.processClock = 0;
             }
-            endTime = DateTime.Now;
-            clockRunning = false;
+            this.endTime = DateTime.Now;
+            this.clockRunning = false;
             SaveTimer();                  
         }
 

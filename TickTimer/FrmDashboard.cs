@@ -20,6 +20,7 @@ namespace TickTimer
         private ProcessTimer TestProcess = new ProcessTimer("Test Process");
         private ProcessMonitor pm = ProcessMonitor.GetInstance();        
         private List<string> CurrentSelections = new List<string>();
+        private ProcessTimersController PTC = ProcessTimersController.GetInstance();
         private int MAX_THREADS = 5;
         public FrmDashboard()
         {
@@ -105,6 +106,11 @@ namespace TickTimer
                 }
             }
             CurrentThings();
+        }
+
+        private void ProcessCheckList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

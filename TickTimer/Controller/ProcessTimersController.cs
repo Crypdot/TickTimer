@@ -32,17 +32,29 @@ namespace TickTimer.Controller
 
         public void ActiveWindowChanged(string NewActiveProcess)
         {
-            //Need to make sure we account for every possibility.
-            //So if the user switches from one tracked process to another, we need to kill the old timer, and start the new one.
-            //And if the user switches from an untracked process to a tracked one, we need to start the new timer.
-            //If the user switches from a tracked process to an inactive one, we need to kill the old timer.
-            if (IsTrackedProcess(NewActiveProcess))
+            //So if the old process was a tracked one, and the new one is also a tracked one!
+            if(IsTrackedProcess(CurrentActiveProcess)) 
             {
-                //Okay, this now starts the timer, but how do we ensure it keeps track of which timers have been started? Otherwise stopping the timers is gonna be paain
-                //Right now, if a timer is started, and then another process is clicked, there's no way of knowing if an active timer _should_ be stopped.
-                //So save the current activity as a "placeholder process"
-                StartTimer(NewActiveProcess);
+                KillTimer(CurrentActiveProcess);
+                if (IsTrackedProcess(NewActiveProcess))
+                {
+                    StartTimer(NewActiveProcess);
+                }
             }
+            else
+            {
+                //Need to make sure we account for every possibility.
+                //So if the user switches from one tracked process to another, we need to kill the old timer, and start the new one.
+                //And if the user switches from an untracked process to a tracked one, we need to start the new timer.
+                //If the user switches from a tracked process to an inactive one, we need to kill the old timer.
+                if (IsTrackedProcess(NewActiveProcess))
+                {
+                    //Okay, this now starts the timer, but how do we ensure it keeps track of which timers have been started? Otherwise stopping the timers is gonna be paain
+                    //Right now, if a timer is started, and then another process is clicked, there's no way of knowing if an active timer _should_ be stopped.
+                    //So save the current activity as a "placeholder process"
+                    StartTimer(NewActiveProcess);
+                }
+            }  
         }
 
         //Lets the controller know whether or not a process is currently tracked or not.
@@ -84,7 +96,7 @@ namespace TickTimer.Controller
             }
         }
 
-        //Removes a process from the list of actively tracked processes.
+        //Removes a process from the list of actively tracked processes. Probably overkill to have a separate method
         private void RemoveProcess(string ProcessName)
         {
             foreach (ProcessTimer pt in ProcessTimers)

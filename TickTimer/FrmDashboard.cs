@@ -21,15 +21,15 @@ namespace TickTimer
         private ProcessMonitor pm = ProcessMonitor.GetInstance();        
         private List<string> CurrentSelections = new List<string>();
         private ProcessTimersController PTC = ProcessTimersController.GetInstance();
-        private int MAX_THREADS = 5;
+        private int MAX_APPS_TRACKED = 5;
         public FrmDashboard()
         {
             InitializeComponent();
             UpdateList();
         }
-        public void ChangeMaxThreads(int NewVal)
+        public void ChangeMaxAppsTracked(int NewVal)
         {
-            this.MAX_THREADS = NewVal;
+            this.MAX_APPS_TRACKED= NewVal;
         }
 
         private void UpdateList()
@@ -68,7 +68,7 @@ namespace TickTimer
         //THIS NEEDS TO BE MOVED INTO ITS OWN CLASS. MAYBE HANDLED BY PROCESSMONITOR? OR DIRECTLY IN THE TIMERS CONTROLLER
         private void Tmr_Tick(object sender, EventArgs e)
         {
-            string title = pm.ActiveWindow();
+            //string title = pm.ActiveWindow();
 
             Console.WriteLine("THE TITLE OF THE CURRENTLY RUNNING APPLICATION IS THIS ===> " + pm.ActiveProcess());
             
@@ -85,7 +85,7 @@ namespace TickTimer
 
             if(temp == null) { return; }
 
-            if(temp.CheckedItems.Count >= MAX_THREADS) { e.NewValue = CheckState.Unchecked; }
+            if(temp.CheckedItems.Count >= MAX_APPS_TRACKED) { e.NewValue = CheckState.Unchecked; }
 
         }
 

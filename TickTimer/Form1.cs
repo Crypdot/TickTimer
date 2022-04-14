@@ -35,9 +35,6 @@ namespace TickTimer
             PnlNav.Top = BtnDashboard.Top;
             PnlNav.Left = BtnDashboard.Left;
             BtnDashboard.BackColor = Color.FromArgb(46, 51, 73);
-
-
-           
         }
 
         private void Form1_Load(object sender, EventArgs e)

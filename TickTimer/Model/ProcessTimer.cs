@@ -46,7 +46,7 @@ namespace TickTimer.Model
         private void SaveTimer()
         {
             this.processClock += (int)((endTime - startTime)).TotalSeconds;
-            Console.WriteLine("For the process: "+processName+": "+processClock);
+            Console.WriteLine("For the process: "+processName+": "+processClock+" seconds overall.");
         }
         
         public string GetProcessName()
